@@ -149,15 +149,33 @@ void Camera::key_controls(bool* keys, GLfloat delta_time, EntityGroup* const sel
 	{
 		selectedModel->translate(glm::vec3(0.f, -.25f, 0.f));
 	}
-	// ROTATE LEFT/RIGHT
+	// ROTATE LEFT/RIGHT ALONG X
 	if (keys[GLFW_KEY_B])
 	{
-		selectedModel->rotate(glm::vec3(0.f, .5f, 0.f));
+		selectedModel->rotate(glm::vec3(0.5f, 0, 0));
 	}
 	else if (keys[GLFW_KEY_N])
 	{
-		selectedModel->rotate(glm::vec3(0.f, -.5f, 0.f));
+		selectedModel->rotate(glm::vec3(-0.5f, 0, 0));
 	}
+    // ROTATE LEFT/RIGHT ALONG Y
+    if (keys[GLFW_KEY_Q])
+    {
+        selectedModel->rotate(glm::vec3(0, 0.5f, 0));
+    }
+    else if (keys[GLFW_KEY_E])
+    {
+        selectedModel->rotate(glm::vec3(0, -0.5f, 0));
+    }
+    // ROTATE LEFT/RIGHT ALONG Z
+    if (keys[GLFW_KEY_COMMA])
+    {
+        selectedModel->rotate(glm::vec3(0, 0, 0.5f));
+    }
+    else if (keys[GLFW_KEY_PERIOD])
+    {
+        selectedModel->rotate(glm::vec3(0, 0, -0.5f));
+    }
 	// [ - Toggle cursor lock
 	if (keys[GLFW_KEY_LEFT_BRACKET])
 	{
