@@ -25,13 +25,103 @@ void create_entities(MeshLoader & loader, EntityManager & entityManager, EntityG
     const Mesh * sphereMesh = loader.load_mesh("sphere.obj");
     const Mesh * cylinderMesh = loader.load_mesh("cylinder.obj");
 
-    Entity * cube = (new Entity(cubeMesh))
-            ->translate(vec3(-2, 0, 0))
+    Entity * m_1 = (new Entity(cubeMesh))
+            ->translate(vec3(0.2f, 1.3f, 0))
+            ->rotate(vec3(0, 0, 45))
+            ->scale(vec3(1, 0.5f, 0.25f));
+    Entity * m_2 = (new Entity(cubeMesh))
+            ->translate(vec3(-0.2f, 1.3f, 0))
+            ->rotate(vec3(0, 0, -45))
+            ->scale(vec3(1, 0.5f, 0.25f));
+    Entity * m_3 = (new Entity(sphereMesh))
+            ->translate(vec3(0.6f, 1, 0))
+            ->scale(vec3(0.25f, 1, 0.25f));
+    Entity * m_4 = (new Entity(sphereMesh))
+            ->translate(vec3(-0.6f, 1, 0))
+            ->scale(vec3(0.25f, 1, 0.25f));
+
+    EntityGroup * letter_m = (new EntityGroup())
+            ->translate(vec3(0, 12.5f, -64))
+            ->set_color(vec3(0.83f, 0.18f, 0.18f))
+            ->add(m_1)
+            ->add(m_2)
+            ->add(m_3)
+            ->add(m_4);
+
+
+    Entity * i_1 = (new Entity(sphereMesh))
+            ->translate(vec3(0, 1, 0))
+            ->scale(vec3(0.25f, 1, 0.25f));
+
+    EntityGroup * letter_i = (new EntityGroup())
+            ->translate(vec3(0, 0, -64))
+            ->set_color(vec3(0.61f, 0.15f, 0.69f))
+            ->add(i_1);
+
+    EntityGroup * letter_i2 = (new EntityGroup())
+            ->translate(vec3(0, 10, -64))
+            ->set_color(vec3(0.48f, 0.12f, 0.64f))
+            ->add(i_1);
+
+
+    Entity * l_1 = (new Entity(sphereMesh))
+            ->translate(vec3(-0.5f, 1, 0))
+            ->scale(vec3(0.25f, 1, 0.25f));
+    Entity * l_2 = (new Entity(cubeMesh))
+            ->translate(vec3(0, 0.25f, 0))
             ->scale(vec3(1, 0.5f, 0.25f));
 
-    Entity * sphere = (new Entity(sphereMesh))
-            ->translate(vec3(-4, 0, 0))
+    EntityGroup * letter_l = (new EntityGroup())
+            ->translate(vec3(0, 7.5f, -64))
+            ->set_color(vec3(0.19f, 0.25f, 0.62f))
+            ->add(l_1)
+            ->add(l_2);
+
+
+    Entity * a_1 = (new Entity(cubeMesh))
+            ->rotate(vec3(90, 0, 0))
+            ->translate(vec3(0, 0.70f, 0))
+            ->scale(vec3(1, 0.5f, 0.25f));
+    Entity * a_2 = (new Entity(cubeMesh))
+            ->translate(vec3(-0.5f, 0.5f, 0))
+            ->rotate(vec3(0, 0, 70))
+            ->scale(vec3(1, 0.5f, 0.25f));
+    Entity * a_3 = (new Entity(cubeMesh))
+            ->translate(vec3(-0.17f, 1.4f, 0))
+            ->rotate(vec3(0, 0, 70))
+            ->scale(vec3(1, 0.5f, 0.25f));
+    Entity * a_4 = (new Entity(cubeMesh))
+            ->translate(vec3(0.5f, 0.5f, 0))
+            ->rotate(vec3(0, 0, -70))
+            ->scale(vec3(1, 0.5f, 0.25f));
+    Entity * a_5 = (new Entity(cubeMesh))
+            ->translate(vec3(0.17f, 1.4f, 0))
+            ->rotate(vec3(0, 0, -70))
+            ->scale(vec3(1, 0.5f, 0.25f));
+
+    EntityGroup * letter_a = (new EntityGroup())
+            ->translate(vec3(0, 5, -64))
+            ->set_color(vec3(0.1f, 0.53f, 0.82f))
+            ->add(a_1)
+            ->add(a_2)
+            ->add(a_3)
+            ->add(a_4)
+            ->add(a_5);
+
+
+    Entity * t_1 = (new Entity(sphereMesh))
+            ->translate(vec3(0, 1, 0))
             ->scale(vec3(0.25f, 1, 0.25f));
+    Entity * t_2 = (new Entity(cubeMesh))
+            ->translate(vec3(0, 2, 0))
+            ->scale(vec3(1, 0.5f, 0.25f));
+
+    EntityGroup * letter_t = (new EntityGroup())
+            ->translate(vec3(0, 2.5f, -64))
+            ->set_color(vec3(0.98f, 0.75f, 0.18f))
+            ->add(t_1)
+            ->add(t_2);
+
 
     Entity * axisX = (new Entity(cylinderMesh))
             ->scale(vec3(0.125f, 2.5f, 0.125f))
@@ -47,11 +137,24 @@ void create_entities(MeshLoader & loader, EntityManager & entityManager, EntityG
             ->rotate(vec3(90, 0, 0))
             ->set_color(vec3(0, 0, 1));
 
-    entityManager.add(cube);
-    entityManager.add(sphere);
+
+    entityManager.add(letter_m);
+    entityManager.add(letter_i2);
+    entityManager.add(letter_l);
+    entityManager.add(letter_a);
+    entityManager.add(letter_t);
+    entityManager.add(letter_i);
     entityManager.add(axisX);
     entityManager.add(axisY);
     entityManager.add(axisZ);
+
+    groups[0] = letter_m;
+    groups[1] = letter_i2;
+    groups[2] = letter_l;
+    groups[3] = letter_a;
+    groups[4] = letter_t;
+    groups[5] = letter_i;
+
 //    const Mesh * cylinderMesh = loader.load_mesh("cylinder.obj");
 }
 
@@ -79,7 +182,7 @@ int main() {
     MeshLoader loader;
 
     // The array of models
-    EntityGroup * models[5];
+    EntityGroup * models[6];
     // The selected model
     EntityGroup* selectedModel;
 
@@ -140,6 +243,10 @@ int main() {
         {
             selectedModel = models[4];
         }
+        else if (keys[GLFW_KEY_6])
+        {
+            selectedModel = models[5];
+        }
 
 		camera.key_controls(main_window.get_keys(), delta_time, selectedModel);
 		camera.mouse_controls(main_window.get_x_change(), main_window.get_y_change(), main_window.get_mouse_buttons(), delta_time);
@@ -152,9 +259,10 @@ int main() {
 
         glUniformMatrix4fv(app_shader.get_projection_location(), 1, GL_FALSE, glm::value_ptr(camera.calculate_projection()));
         glUniformMatrix4fv(app_shader.get_model_location(), 1, GL_FALSE, glm::value_ptr(mat4(1.0f)));
+        glUniform3fv(app_shader.get_color_location(), 1, glm::value_ptr(vec3(0, 0, 0)));
 
 		// Display the grid
-//		grid.render();
+		grid.render();
 
 		// Stop the shader
 		glUseProgram(0);

@@ -58,6 +58,7 @@ void EntityRenderer::render(const mat4 & parentTransform, const EntityGroup * gr
 
     // If entities are present in this group, render them
     const vector<const Entity*>& groupEntities = group->get_entities();
+    glUniform3fv(shader.get_color_location(), 1, glm::value_ptr(group->get_color()));
     for (const Entity * entity : groupEntities) {
         const Mesh * mesh = entity->get_mesh();
 
@@ -69,7 +70,6 @@ void EntityRenderer::render(const mat4 & parentTransform, const EntityGroup * gr
         // Load model matrix then render
         mat4 transform = parentTransform * groupTransform * entity->create_transform();
         glUniformMatrix4fv(shader.get_model_location(), 1, GL_FALSE, glm::value_ptr(transform));
-        glUniform3fv(shader.get_color_location(), 1, glm::value_ptr(entity->get_color()));
         mesh->render_mesh();
 
         // Disable attributes

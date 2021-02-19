@@ -3,13 +3,15 @@
 EntityGroup::EntityGroup() :
         pos(0, 0, 0),
         rot(0, 0, 0),
-        scaleXYZ(1, 1, 1) {}
+        scaleXYZ(1, 1, 1),
+        color(1, 1, 1) {}
 
 EntityGroup::EntityGroup(const EntityGroup * src, bool copyTransform) :
         pos(copyTransform ? src->pos : vec3(0, 0, 0)),
         rot(copyTransform ? src->rot : vec3(0, 0, 0)),
         scaleXYZ(copyTransform ? src->scaleXYZ : vec3(1, 1, 1)),
-        entities(src->entities) {
+        entities(src->entities),
+        color(1, 1, 1) {
     for (const EntityGroup * group : src->childrenGroups) {
         childrenGroups.push_back(new EntityGroup(group, true));
     }
@@ -104,4 +106,9 @@ mat4 EntityGroup::create_transform() const {
     matrix = glm::rotate(matrix, rot.z * glm::pi<float>() / 180.0f, vec3(0, 0, 1));
     matrix = glm::scale(matrix, scaleXYZ);
     return matrix;
+}
+
+EntityGroup * EntityGroup::set_color(const vec3 & color) {
+    this->color = vec3(color);
+    return this;
 }

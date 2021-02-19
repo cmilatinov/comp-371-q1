@@ -12,6 +12,7 @@ class EntityGroup {
 
 private:
     vec3 pos, rot, scaleXYZ;
+    vec3 color;
     vector<const Entity*> entities;
     vector<const EntityGroup*> childrenGroups;
 
@@ -34,6 +35,7 @@ public:
     EntityGroup * set_rotation(const vec3 & rotation);
     EntityGroup * set_scale(const vec3 & scale);
     EntityGroup * set_scale(float scale);
+    EntityGroup * set_color(const vec3 & color);
 
     mat4 create_transform() const;
 
@@ -43,6 +45,10 @@ public:
 
     inline const vector<const EntityGroup*> & get_children_groups() const {
         return childrenGroups;
+    }
+
+    inline const vec3 & get_color() const {
+        return color;
     }
 
 };
